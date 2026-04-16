@@ -23,6 +23,7 @@ public class PlayerShooting : NetworkBehaviour
 
     private WeaponData currentWeapon;
     private float nextFireTime;
+    private Coroutine reloadRoutine;
 
     public Recoil recoilScript;
 
@@ -51,7 +52,7 @@ public class PlayerShooting : NetworkBehaviour
 
     public override void OnStartServer()
     {
-        if (loadout == null)
+        if (loadout == null || loadout.Length == 0)
             return;
 
         ammoInventory.Clear();
@@ -60,6 +61,7 @@ public class PlayerShooting : NetworkBehaviour
             ammoInventory.Add(loadout[i].maxAmmo);
 
         currentWeaponIndex = 0;
+        currentWeapon = loadout[0];
     }
 
     public override void OnStartClient()
@@ -119,6 +121,7 @@ public class PlayerShooting : NetworkBehaviour
 
         int ammo = ammoInventory[currentWeaponIndex];
         OnWeaponChangedEvent?.Invoke(currentWeapon, ammo);
+        OnAmmoChangedEvent?.Invoke(ammo, currentWeapon.maxAmmo);
     }
 
     private void UpdateWeaponVisuals(int index)
@@ -141,6 +144,7 @@ public class PlayerShooting : NetworkBehaviour
         {
             int ammo = ammoInventory[index];
             OnWeaponChangedEvent?.Invoke(currentWeapon, ammo);
+            OnAmmoChangedEvent?.Invoke(ammo, currentWeapon.maxAmmo);
         }
     }
 
@@ -158,6 +162,10 @@ public class PlayerShooting : NetworkBehaviour
     private void Update()
     {
         if (!isLocalPlayer || currentWeapon == null)
+            return;
+
+        var rewind = GetComponent<PlayerRewind>();
+        if (rewind != null && rewind.IsRewinding)
             return;
 
         if (isReloading)
@@ -245,7 +253,13 @@ public class PlayerShooting : NetworkBehaviour
         if (isReloading)
             return;
 
-        StartCoroutine(ReloadCoroutine());
+        if (currentWeaponIndex < 0 || currentWeaponIndex >= loadout.Length)
+            return;
+
+        if (reloadRoutine != null)
+            StopCoroutine(reloadRoutine);
+
+        reloadRoutine = StartCoroutine(ReloadCoroutine());
     }
 
     private IEnumerator ReloadCoroutine()
@@ -253,6 +267,19 @@ public class PlayerShooting : NetworkBehaviour
         isReloading = true;
         yield return new WaitForSeconds(loadout[currentWeaponIndex].reloadTime);
         ammoInventory[currentWeaponIndex] = loadout[currentWeaponIndex].maxAmmo;
+        isReloading = false;
+        reloadRoutine = null;
+    }
+
+    [Server]
+    public void CancelReload()
+    {
+        if (reloadRoutine != null)
+        {
+            StopCoroutine(reloadRoutine);
+            reloadRoutine = null;
+        }
+
         isReloading = false;
     }
 
@@ -263,6 +290,7 @@ public class PlayerShooting : NetworkBehaviour
             return;
 
         currentWeaponIndex = index;
+        currentWeapon = loadout[index];
     }
 
     private void OnWeaponChanged(int oldIndex, int newIndex)

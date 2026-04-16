@@ -1,22 +1,21 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Mirror; // Добавляем Mirror
+using Mirror;
 
-public class MouseLookX : NetworkBehaviour // Наследуемся от NetworkBehaviour
+public class MouseLookX : NetworkBehaviour
 {
     public float lookSensitivity = 0.5f;
     public InputActionReference lookAction;
 
     private float rotationY = 0f;
 
-    private void OnEnable() 
+    private void OnEnable()
     {
-        // Включаем ввод только если это наш игрок
         if (isLocalPlayer && lookAction != null)
             lookAction.action.Enable();
     }
 
-    private void OnDisable() 
+    private void OnDisable()
     {
         if (isLocalPlayer && lookAction != null)
             lookAction.action.Disable();
@@ -24,7 +23,6 @@ public class MouseLookX : NetworkBehaviour // Наследуемся от Networ
 
     void Start()
     {
-        // Если это чужой игрок — выключаем скрипт, чтобы он не ел ресурсы
         if (!isLocalPlayer)
         {
             this.enabled = false;
@@ -34,12 +32,15 @@ public class MouseLookX : NetworkBehaviour // Наследуемся от Networ
 
     void Update()
     {
-        // Проверка на всякий случай
-        if (!isLocalPlayer) return;
+        if (!isLocalPlayer)
+            return;
+
+        var rewind = GetComponent<PlayerRewind>();
+        if (rewind != null && rewind.IsRewinding)
+            return;
 
         Vector2 input = lookAction.action.ReadValue<Vector2>();
         rotationY += input.x * lookSensitivity;
-
         transform.localRotation = Quaternion.Euler(0, rotationY, 0);
     }
 }

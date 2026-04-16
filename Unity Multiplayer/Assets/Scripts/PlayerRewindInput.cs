@@ -17,7 +17,13 @@ public class PlayerRewindInput : NetworkBehaviour
         if (!isLocalPlayer)
             return;
 
-        if (Input.GetKeyDown(rewindKey) && rewind != null)
+        if (rewind == null)
+            return;
+
+        if (rewind.IsRewinding)
+            return;
+
+        if (Input.GetKeyDown(rewindKey))
             rewind.CmdRequestRewind();
     }
 }

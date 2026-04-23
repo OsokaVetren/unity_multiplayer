@@ -34,6 +34,10 @@ public class PlayerShooting : NetworkBehaviour
 
     public WeaponData CurrentWeapon => currentWeapon;
 
+    private ParticleSystem currentMuzzleFlash;
+
+    [SerializeField] private WeaponRecoil weaponRecoil;
+
     public int CurrentAmmo
     {
         get
@@ -136,8 +140,10 @@ public class PlayerShooting : NetworkBehaviour
             for (int i = weaponHolder.childCount - 1; i >= 0; i--)
                 Destroy(weaponHolder.GetChild(i).gameObject);
 
-            if (currentWeapon.visualPrefab != null)
-                Instantiate(currentWeapon.visualPrefab, weaponHolder);
+            if (currentWeapon.visualPrefab != null){
+                GameObject weaponObj = Instantiate(currentWeapon.visualPrefab, weaponHolder);
+                currentMuzzleFlash = weaponObj.GetComponentInChildren<ParticleSystem>();
+            }
         }
 
         if (isLocalPlayer && index < ammoInventory.Count)
@@ -193,17 +199,24 @@ public class PlayerShooting : NetworkBehaviour
     {
         nextFireTime = Time.time + currentWeapon.fireRate;
 
-        if (recoilScript != null)
+        if (recoilScript != null){
             recoilScript.FireRecoil(currentWeapon);
-
+            weaponRecoil.Fire();
+        }
+        
         if (audioSource != null && currentWeapon.shootSound != null)
             audioSource.PlayOneShot(currentWeapon.shootSound, currentWeapon.volume);
 
         Camera cam = Camera.main;
         if (cam == null)
             return;
-
         CmdShoot(cam.transform.position, cam.transform.forward);
+    }
+
+    [ClientRpc]
+    private void RpcPlayMuzzleFlash()
+    {
+        currentMuzzleFlash.Play();
     }
 
     [Command]
@@ -216,7 +229,9 @@ public class PlayerShooting : NetworkBehaviour
             return;
 
         ammoInventory[currentWeaponIndex]--;
+        currentMuzzleFlash.Play();
         RpcPlayShootSound();
+        RpcPlayMuzzleFlash();
 
         if (Physics.Raycast(origin, direction, out RaycastHit hit, currentWeapon.range))
         {

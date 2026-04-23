@@ -15,10 +15,11 @@ MonoBehaviour:
   weaponName: ak-47
   damage: 20
   maxAmmo: 30
+  current_ammo: 30
   fireRate: 0.1
   reloadTime: 2
   range: 100
-  visualPrefab: {fileID: 2168458040987597686, guid: e3cf5a3fde3f8a142b608765b7d59927, type: 3}
+  visualPrefab: {fileID: 236588244465801935, guid: e001274801da4524d83648f6bdc7ee7f, type: 3}
   shootSound: {fileID: 8300000, guid: 481dc7bdf18bf7c46b25b6464e8c009f, type: 3}
   emptySound: {fileID: 8300000, guid: e49a5c2f2ecd577438429a702791e091, type: 3}
   weaponIcon: {fileID: 21300000, guid: bf300518123fdaa44831d75eae388be4, type: 3}

@@ -1,0 +1,181 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\scripts\\networkplayersetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\networkplayersetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\scripts\\bullethandler_networked.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\bullethandler_networked.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\scripts\\mainmenucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\mainmenucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\infima games\\low poly shooter pack - free sample\\code\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\infima games\\low poly shooter pack - free sample\\code\\character\\character.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\infima games\\low poly shooter pack - free sample\\code\\character\\characterbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\infima games\\low poly shooter pack - free sample\\code\\character\\characterbehaviour.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\infima games\\low poly shooter pack - free sample\\code\\camera\\cameralook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\infima games\\low poly shooter pack - free sample\\code\\camera\\cameralook.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\scripts\\playerrewindinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerrewindinput.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\scripts\\playerrewind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\playerrewind.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\infima games\\low poly shooter pack - free sample\\code\\character\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\infima games\\low poly shooter pack - free sample\\code\\character\\movement.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|c:\\users\\alex\\desktop\\\u043D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\unity multiplayer\\assets\\infima games\\low poly shooter pack - free sample\\code\\character\\characterkinematics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B4CD19DA-EE08-5225-FB19-1D0DFA4113DD}|Assembly-CSharp.csproj|solutionrelative:assets\\infima games\\low poly shooter pack - free sample\\code\\character\\characterkinematics.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 9,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "BulletHandler_Networked.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\BulletHandler_Networked.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BulletHandler_Networked.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\BulletHandler_Networked.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BulletHandler_Networked.cs",
+              "ViewState": "AgIAADkAAAAAAAAAAAAswFkAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T01:57:39.787Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainMenuController.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\MainMenuController.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\MainMenuController.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\MainMenuController.cs",
+              "RelativeToolTip": "Assets\\Scripts\\MainMenuController.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAiwB0AAABPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T00:59:56.009Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CharacterBehaviour.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterBehaviour.cs",
+              "RelativeDocumentMoniker": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterBehaviour.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterBehaviour.cs",
+              "RelativeToolTip": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterBehaviour.cs",
+              "ViewState": "AgIAAEMAAAAAAAAAAAAgwHEAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-24T00:00:09.27Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Character.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Character.cs",
+              "RelativeDocumentMoniker": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Character.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Character.cs",
+              "RelativeToolTip": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Character.cs",
+              "ViewState": "AgIAACMDAAAAAAAAAAAgwFEDAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T22:59:47.1Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CameraLook.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Camera\\CameraLook.cs",
+              "RelativeDocumentMoniker": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Camera\\CameraLook.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Camera\\CameraLook.cs",
+              "RelativeToolTip": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Camera\\CameraLook.cs",
+              "ViewState": "AgIAAF4AAAAAAAAAAAAgwHsAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T22:59:27.683Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PlayerRewindInput.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\PlayerRewindInput.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerRewindInput.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\PlayerRewindInput.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerRewindInput.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T11:25:01.927Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PlayerRewind.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\PlayerRewind.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlayerRewind.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\PlayerRewind.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlayerRewind.cs",
+              "ViewState": "AgIAAP4AAAAAAAAAAADwv2MBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-14T11:23:26.8Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Movement.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Movement.cs",
+              "RelativeDocumentMoniker": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Movement.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Movement.cs",
+              "RelativeToolTip": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\Movement.cs",
+              "ViewState": "AgIAAEUAAAAAAAAAAAA1wFoAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-23T21:58:51.447Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CharacterKinematics.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterKinematics.cs",
+              "RelativeDocumentMoniker": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterKinematics.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterKinematics.cs",
+              "RelativeToolTip": "Assets\\Infima Games\\Low Poly Shooter Pack - Free Sample\\Code\\Character\\CharacterKinematics.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAANMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T21:49:52.153Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "NetworkPlayerSetup.cs",
+              "DocumentMoniker": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\NetworkPlayerSetup.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\NetworkPlayerSetup.cs",
+              "ToolTip": "C:\\Users\\Alex\\Desktop\\\u041D\u043E\u0432\u0430\u044F \u043F\u0430\u043F\u043A\u0430 (13) \u2014 \u043A\u043E\u043F\u0438\u044F\\Unity Multiplayer\\Assets\\Scripts\\NetworkPlayerSetup.cs",
+              "RelativeToolTip": "Assets\\Scripts\\NetworkPlayerSetup.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-25T21:57:33.642Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

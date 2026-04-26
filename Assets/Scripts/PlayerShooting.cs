@@ -40,6 +40,7 @@ public class PlayerShooting : NetworkBehaviour
     private PlayerRewind playerRewind;
     private PlayerHUD hud;
     private Coroutine reloadRoutine;
+    private Camera localCamera;
 
     public WeaponData CurrentWeapon => currentWeapon;
     public int CurrentAmmo => (currentWeaponIndex >= 0 && currentWeaponIndex < ammoInventory.Count) ? ammoInventory[currentWeaponIndex] : 0;
@@ -48,6 +49,13 @@ public class PlayerShooting : NetworkBehaviour
     {
         playerHealth = GetComponent<PlayerHealth>();
         playerRewind = GetComponent<PlayerRewind>();
+
+        // Ищем камеру в собственной иерархии, а не через Camera.main
+        var fpsInput = GetComponent<FPSInput>();
+        if (fpsInput != null && fpsInput.PlayerCamera != null)
+            localCamera = fpsInput.PlayerCamera;
+        else
+            localCamera = GetComponentInChildren<Camera>(true);
     }
 
     public override void OnStartServer()
@@ -101,7 +109,9 @@ public class PlayerShooting : NetworkBehaviour
         if (audioSource && currentWeapon.shootSound) audioSource.PlayOneShot(currentWeapon.shootSound, currentWeapon.volume);
 
         // Камера локального игрока для расчёта raycast'a на сервере
-        Transform camTransform = Camera.main != null ? Camera.main.transform : transform;
+        if (localCamera == null)
+            localCamera = GetComponentInChildren<Camera>(true);
+        Transform camTransform = localCamera != null ? localCamera.transform : transform;
         CmdShoot(camTransform.position, camTransform.forward);
     }
 

@@ -42,7 +42,7 @@ public class PlayerHUD : MonoBehaviour
     public void UpdateHealth(int current, int max)
     {
         if (healthBarFill != null && max > 0)
-            healthBarFill.fillAmount = 1f - (float)current / max;
+            healthBarFill.fillAmount = (float)current / max;
 
         if (healthText != null)
             healthText.text = $"{current} / {max}";

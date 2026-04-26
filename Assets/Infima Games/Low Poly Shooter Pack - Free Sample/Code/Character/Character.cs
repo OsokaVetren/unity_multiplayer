@@ -1,15 +1,18 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+// Copyright 2021, Infima Games. All Rights Reserved.
+// MODIFIED for Mirror multiplayer support.
 
 using System;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.InputSystem;
+using Mirror;
 
 namespace InfimaGames.LowPolyShooterPack
 {
 	/// <summary>
 	/// Main Character Component. This component handles the most important functions of the character, and interfaces
 	/// with basically every part of the asset, it is the hub where it all converges.
+	/// Modified for multiplayer: only the local player processes input and drives animations.
 	/// </summary>
 	[RequireComponent(typeof(CharacterKinematics))]
 	public sealed class Character : CharacterBehaviour
@@ -47,6 +50,16 @@ namespace InfimaGames.LowPolyShooterPack
 		#endregion
 
 		#region FIELDS
+
+		/// <summary>
+		/// Cached NetworkIdentity for ownership checks.
+		/// </summary>
+		private NetworkIdentity netIdentity;
+
+		/// <summary>
+		/// True if this character belongs to the local player.
+		/// </summary>
+		private bool isLocal;
 
 		/// <summary>
 		/// True if the character is aiming.
@@ -169,14 +182,8 @@ namespace InfimaGames.LowPolyShooterPack
 
 		protected override void Awake()
 		{
-			#region Lock Cursor
-
-			//Always make sure that our cursor is locked when the game starts!
-			cursorLocked = true;
-			//Update the cursor's state.
-			UpdateCursorState();
-
-			#endregion
+			// Cache network identity for ownership checks
+			netIdentity = GetComponentInParent<NetworkIdentity>();
 
 			//Cache the CharacterKinematics component.
 			characterKinematics = GetComponent<CharacterKinematics>();
@@ -187,8 +194,19 @@ namespace InfimaGames.LowPolyShooterPack
 			//Refresh!
 			RefreshWeaponSetup();
 		}
+
 		protected override void Start()
 		{
+			// Determine if this is the local player
+			isLocal = (netIdentity != null) ? netIdentity.isLocalPlayer : true;
+
+			if (isLocal)
+			{
+				//Lock cursor only for local player
+				cursorLocked = true;
+				UpdateCursorState();
+			}
+
 			//Cache a reference to the holster layer's index.
 			layerHolster = characterAnimator.GetLayerIndex("Layer Holster");
 			//Cache a reference to the action layer's index.
@@ -199,6 +217,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 		protected override void Update()
 		{
+			// Only the local player drives input and animation logic
+			if (!isLocal)
+				return;
+
 			//Match Aim.
 			aiming = holdingButtonAim && CanAim();
 			//Match Run.
@@ -222,6 +244,10 @@ namespace InfimaGames.LowPolyShooterPack
 
 		protected override void LateUpdate()
 		{
+			// Only the local player drives IK
+			if (!isLocal)
+				return;
+
 			//We need a weapon for this!
 			if (equippedWeapon == null)
 				return;
@@ -561,6 +587,9 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryFire(InputAction.CallbackContext context)
 		{
+			// Only local player handles input
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -606,6 +635,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryPlayReload(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -630,6 +661,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryInspect(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -653,6 +686,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryAiming(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -676,6 +711,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryHolster(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -701,6 +738,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryRun(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -725,6 +764,8 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnTryInventoryNext(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Block while the cursor is unlocked.
 			if (!cursorLocked)
 				return;
@@ -756,6 +797,8 @@ namespace InfimaGames.LowPolyShooterPack
 		
 		public void OnLockCursor(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
+
 			//Switch.
 			switch (context)
 			{
@@ -774,6 +817,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnMove(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
 			//Read.
 			axisMovement = cursorLocked ? context.ReadValue<Vector2>() : default;
 		}
@@ -782,6 +826,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnLook(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
 			//Read.
 			axisLook = cursorLocked ? context.ReadValue<Vector2>() : default;
 		}
@@ -791,6 +836,7 @@ namespace InfimaGames.LowPolyShooterPack
 		/// </summary>
 		public void OnUpdateTutorial(InputAction.CallbackContext context)
 		{
+			if (!isLocal) return;
 			//Switch.
 			tutorialTextVisible = context switch
 			{
@@ -823,7 +869,8 @@ namespace InfimaGames.LowPolyShooterPack
 		public override void SetActiveMagazine(int active)
 		{
 			//Set magazine gameObject active.
-			equippedWeaponMagazine.gameObject.SetActive(active != 0);
+			if(equippedWeaponMagazine != null)
+				equippedWeaponMagazine.gameObject.SetActive(active != 0);
 		}
 		
 		public override void AnimationEndedReload()

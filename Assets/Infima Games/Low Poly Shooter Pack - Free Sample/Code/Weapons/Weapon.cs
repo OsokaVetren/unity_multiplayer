@@ -1,12 +1,15 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+// Copyright 2021, Infima Games. All Rights Reserved.
+// MODIFIED for Mirror multiplayer support.
 
 using UnityEngine;
-using Mirror; // Добавлено для работы с сетевыми переменными
+using Mirror;
 
 namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
     /// Weapon. This class handles most of the things that weapons need.
+    /// Modified: camera and character references are resolved from the owning player hierarchy,
+    /// not from a global singleton (which finds the wrong player in multiplayer).
     /// </summary>
     public class Weapon : WeaponBehaviour
     {
@@ -97,9 +100,20 @@ namespace InfimaGames.LowPolyShooterPack
         private MuzzleBehaviour muzzleBehaviour;
         #endregion
 
-        private IGameModeService gameModeService;
+        /// <summary>
+        /// The CharacterBehaviour that owns this weapon (found via parent hierarchy).
+        /// </summary>
         private CharacterBehaviour characterBehaviour;
+
+        /// <summary>
+        /// The camera of the owning player.
+        /// </summary>
         private Transform playerCamera;
+
+        /// <summary>
+        /// Cached NetworkIdentity of the owner.
+        /// </summary>
+        private NetworkIdentity ownerNetIdentity;
 
         #endregion
 
@@ -109,9 +123,17 @@ namespace InfimaGames.LowPolyShooterPack
         {
             animator = GetComponent<Animator>();
             attachmentManager = GetComponent<WeaponAttachmentManagerBehaviour>();
-            gameModeService = ServiceLocator.Current.Get<IGameModeService>();
-            characterBehaviour = gameModeService.GetPlayerCharacter();
-            playerCamera = characterBehaviour.GetCameraWorld().transform;
+
+            // Resolve owner from hierarchy instead of global singleton
+            ownerNetIdentity = GetComponentInParent<NetworkIdentity>();
+            characterBehaviour = GetComponentInParent<CharacterBehaviour>();
+
+            if (characterBehaviour != null)
+            {
+                Camera cam = characterBehaviour.GetCameraWorld();
+                if (cam != null)
+                    playerCamera = cam.transform;
+            }
         }
 
         protected override void Start()
@@ -153,13 +175,10 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override void Fire(float spreadMultiplier = 1.0f)
         {
-            // --- СЕТЕВАЯ ПРОВЕРКА (ОБНОВЛЕНО) ---
-            // Проверяем, является ли персонаж, в руках которого это оружие, локальным игроком.
-            // Если это "клон", мы выходим из метода, чтобы не создавать пули-дубликаты.
-            var ni = GetComponentInParent<NetworkIdentity>();
-            if (ni != null && !ni.isLocalPlayer)
+            // --- NETWORK CHECK ---
+            // Only the local player should spawn visual projectiles
+            if (ownerNetIdentity != null && !ownerNetIdentity.isLocalPlayer)
                 return;
-            // ------------------------------------
 
             if (muzzleBehaviour == null)
                 return;
@@ -194,6 +213,10 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override void EjectCasing()
         {
+            // Only local player spawns visual casings
+            if (ownerNetIdentity != null && !ownerNetIdentity.isLocalPlayer)
+                return;
+
             if (prefabCasing != null && socketEjection != null)
                 Instantiate(prefabCasing, socketEjection.position, socketEjection.rotation);
         }

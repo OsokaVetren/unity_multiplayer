@@ -1,4 +1,5 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+// Copyright 2021, Infima Games. All Rights Reserved.
+// MODIFIED for Mirror multiplayer support.
 
 using UnityEngine;
 
@@ -6,13 +7,14 @@ namespace InfimaGames.LowPolyShooterPack
 {
 	/// <summary>
 	/// Handles all the animation events that come from the character in the asset.
+	/// Modified: resolves Character from parent hierarchy instead of global singleton.
 	/// </summary>
 	public class CharacterAnimationEventHandler : MonoBehaviour
 	{
 		#region FIELDS
 
 		/// <summary>
-        /// Character Component Reference.
+        /// Character Component Reference — resolved from parent hierarchy.
         /// </summary>
         private CharacterBehaviour playerCharacter;
 
@@ -22,8 +24,8 @@ namespace InfimaGames.LowPolyShooterPack
 
 		private void Awake()
 		{
-			//Grab a reference to the character component.
-			playerCharacter = ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
+			// Find our own Character in the parent hierarchy, NOT via global GameModeService
+			playerCharacter = GetComponentInParent<CharacterBehaviour>();
 		}
 
 		#endregion

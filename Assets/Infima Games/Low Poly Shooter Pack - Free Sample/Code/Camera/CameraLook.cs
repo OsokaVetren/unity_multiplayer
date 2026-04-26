@@ -1,27 +1,49 @@
-﻿using UnityEngine;
+using UnityEngine;
 using Mirror;
 
 namespace InfimaGames.LowPolyShooterPack
 {
-    public class CameraLook : NetworkBehaviour
+    /// <summary>
+    /// Camera look controller.
+    /// Modified: uses NetworkIdentity from parent for proper ownership check.
+    /// Also disables the camera component on non-local players to avoid
+    /// multiple active cameras.
+    /// </summary>
+    public class CameraLook : MonoBehaviour
     {
         [SerializeField] private Vector2 sensitivity = new Vector2(1.5f, 1.5f);
         [SerializeField] private Vector2 yClamp = new Vector2(-80, 80);
 
         private CharacterBehaviour playerCharacter;
+        private NetworkIdentity netIdentity;
         private Quaternion rotationCharacter;
         private Quaternion rotationCamera;
+        private bool isLocal;
 
         private void Start()
         {
+            netIdentity = GetComponentInParent<NetworkIdentity>();
+            isLocal = (netIdentity != null) ? netIdentity.isLocalPlayer : true;
+
             playerCharacter = GetComponentInParent<CharacterBehaviour>();
             rotationCharacter = transform.root.localRotation;
             rotationCamera = transform.localRotation;
+
+            // Disable camera & audio listener for non-local players
+            if (!isLocal)
+            {
+                Camera cam = GetComponent<Camera>();
+                if (cam != null) cam.enabled = false;
+
+                AudioListener listener = GetComponent<AudioListener>();
+                if (listener != null) listener.enabled = false;
+            }
         }
 
         private void LateUpdate()
         {
-            if (!isLocalPlayer) return;
+            if (!isLocal) return;
+            if (playerCharacter == null) return;
 
             Vector2 frameInput = playerCharacter.IsCursorLocked() ? playerCharacter.GetInputLook() : default;
             frameInput *= sensitivity;
@@ -31,8 +53,8 @@ namespace InfimaGames.LowPolyShooterPack
 
             rotationCamera = Clamp(rotationCamera);
 
-            transform.localRotation = rotationCamera; // Наклон головы (синхронится через NetTransform)
-            transform.root.rotation = rotationCharacter; // Поворот тела
+            transform.localRotation = rotationCamera;
+            transform.root.rotation = rotationCharacter;
         }
 
         private Quaternion Clamp(Quaternion q)

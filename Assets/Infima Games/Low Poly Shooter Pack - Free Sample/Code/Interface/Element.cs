@@ -1,4 +1,5 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+// Copyright 2021, Infima Games. All Rights Reserved.
+// MODIFIED for Mirror multiplayer support.
 
 using UnityEngine;
 
@@ -6,6 +7,9 @@ namespace InfimaGames.LowPolyShooterPack.Interface
 {
     /// <summary>
     /// Interface Element.
+    /// Modified: uses deferred resolution of player character — 
+    /// GameModeService now correctly returns the local player in multiplayer.
+    /// Also adds null-safety for cases where the local player hasn't spawned yet.
     /// </summary>
     public abstract class Element : MonoBehaviour
     {
@@ -41,11 +45,6 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         {
             //Get Game Mode Service. Very useful to get Game Mode references.
             gameModeService = ServiceLocator.Current.Get<IGameModeService>();
-            
-            //Get Player Character.
-            playerCharacter = gameModeService.GetPlayerCharacter();
-            //Get Player Character Inventory.
-            playerCharacterInventory = playerCharacter.GetInventory();
         }
         
         /// <summary>
@@ -53,6 +52,14 @@ namespace InfimaGames.LowPolyShooterPack.Interface
         /// </summary>
         private void Update()
         {
+            // Deferred resolution: try to get the local player character if we don't have one yet
+            if (playerCharacter == null && gameModeService != null)
+            {
+                playerCharacter = gameModeService.GetPlayerCharacter();
+                if (playerCharacter != null)
+                    playerCharacterInventory = playerCharacter.GetInventory();
+            }
+
             //Ignore if we don't have an Inventory.
             if (Equals(playerCharacterInventory, null))
                 return;

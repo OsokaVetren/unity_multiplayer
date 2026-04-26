@@ -1,4 +1,5 @@
-﻿// Copyright 2021, Infima Games. All Rights Reserved.
+// Copyright 2021, Infima Games. All Rights Reserved.
+// MODIFIED for Mirror multiplayer support.
 
 using UnityEngine;
 
@@ -6,6 +7,8 @@ namespace InfimaGames.LowPolyShooterPack
 {
     /// <summary>
     /// Helper StateMachineBehaviour that allows us to more easily play a specific weapon sound.
+    /// Modified: resolves CharacterBehaviour from the Animator's parent hierarchy
+    /// instead of the global GameModeService singleton.
     /// </summary>
     public class PlaySoundCharacterBehaviour : StateMachineBehaviour
     {
@@ -45,7 +48,7 @@ namespace InfimaGames.LowPolyShooterPack
         #region FIELDS
 
         /// <summary>
-        /// Player Character.
+        /// Player Character — resolved from the Animator's hierarchy.
         /// </summary>
         private CharacterBehaviour playerCharacter;
 
@@ -68,8 +71,12 @@ namespace InfimaGames.LowPolyShooterPack
         /// </summary>
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            //We need to get the character component.
-            playerCharacter ??= ServiceLocator.Current.Get<IGameModeService>().GetPlayerCharacter();
+            // Resolve character from the Animator's own hierarchy (not from global singleton)
+            if (playerCharacter == null)
+                playerCharacter = animator.GetComponentInParent<CharacterBehaviour>();
+
+            if (playerCharacter == null)
+                return;
 
             //Get Inventory.
             playerInventory ??= playerCharacter.GetInventory();

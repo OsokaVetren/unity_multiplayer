@@ -48,6 +48,27 @@ public class PlayerHealth : NetworkBehaviour
             if (rewind != null)
                 rewind.RegisterIncomingDamage(attacker, damage, damageEventId);
         }
+
+        if (health <= 0)
+        {
+            Die(attacker);
+        }
+    }
+
+    [Server]
+    private void Die(PlayerHealth killer)
+    {
+        // Получаем компоненты счета
+        PlayerScore victimScore = GetComponent<PlayerScore>();
+        PlayerScore killerScore = (killer != null) ? killer.GetComponent<PlayerScore>() : null;
+
+        // Если есть MatchManager, сообщаем ему об убийстве
+        if (MatchManager.instance != null)
+        {
+            MatchManager.instance.OnPlayerKilled(killerScore, victimScore);
+        }
+        
+        // Здесь можно добавить визуальный эффект смерти (отключить модель или скрыть игрока)
     }
 
     [Server]

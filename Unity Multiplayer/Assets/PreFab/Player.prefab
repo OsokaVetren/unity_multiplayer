@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 5886116466714027684}
   - component: {fileID: 7480354437536145401}
   - component: {fileID: 1933325409622614631}
+  - component: {fileID: 4154179836662214392}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -400,6 +401,23 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   rewindKey: 113
+--- !u!114 &4154179836662214392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1051258120638461129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d88887a50f7e744f8e383c93e4194b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerScore
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  kills: 0
+  playerName: 
 --- !u!1 &1172983826566761146
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,6 +557,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 183cfbb674a460d4893c12bf1519c20c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MouseLookY
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   lookSensitivity: 1
   lookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   minLookAngle: -50

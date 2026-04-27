@@ -29,6 +29,7 @@ public class FPSInput : NetworkBehaviour
     [SerializeField] private AudioSource footstepSource;
     [SerializeField] private AudioClip[] footstepClips;
     [SerializeField] private float stepInterval = 0.5f;
+    
 
     private float stepTimer;
     private CharacterController controller;

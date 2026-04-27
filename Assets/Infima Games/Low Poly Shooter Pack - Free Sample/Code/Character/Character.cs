@@ -1,5 +1,6 @@
 // Copyright 2021, Infima Games. All Rights Reserved.
 // MODIFIED for Mirror multiplayer support.
+// FIX: Animation sync for all players via NetworkAnimator.
 
 using System;
 using UnityEngine;
@@ -12,7 +13,8 @@ namespace InfimaGames.LowPolyShooterPack
 	/// <summary>
 	/// Main Character Component. This component handles the most important functions of the character, and interfaces
 	/// with basically every part of the asset, it is the hub where it all converges.
-	/// Modified for multiplayer: only the local player processes input and drives animations.
+	/// Modified for multiplayer: only the local player processes input.
+	/// Animator parameters are set by the local player and synced to all via NetworkAnimator.
 	/// </summary>
 	[RequireComponent(typeof(CharacterKinematics))]
 	public sealed class Character : CharacterBehaviour
@@ -60,6 +62,11 @@ namespace InfimaGames.LowPolyShooterPack
 		/// True if this character belongs to the local player.
 		/// </summary>
 		private bool isLocal;
+
+		/// <summary>
+		/// Cached PlayerShooting component for network weapon sync.
+		/// </summary>
+		private PlayerShooting playerShooting;
 
 		/// <summary>
 		/// True if the character is aiming.
@@ -185,6 +192,9 @@ namespace InfimaGames.LowPolyShooterPack
 			// Cache network identity for ownership checks
 			netIdentity = GetComponentInParent<NetworkIdentity>();
 
+			// FIX: Cache PlayerShooting for network weapon sync
+			playerShooting = GetComponentInParent<PlayerShooting>();
+
 			//Cache the CharacterKinematics component.
 			characterKinematics = GetComponent<CharacterKinematics>();
 
@@ -217,29 +227,30 @@ namespace InfimaGames.LowPolyShooterPack
 
 		protected override void Update()
 		{
-			// Only the local player drives input and animation logic
-			if (!isLocal)
-				return;
-
-			//Match Aim.
-			aiming = holdingButtonAim && CanAim();
-			//Match Run.
-			running = holdingButtonRun && CanRun();
-
-			//Holding the firing button.
-			if (holdingButtonFire)
+			// Only the local player processes input and firing logic
+			if (isLocal)
 			{
-				//Check.
-				if (CanPlayAnimationFire() && equippedWeapon.HasAmmunition() && equippedWeapon.IsAutomatic())
-				{
-					//Has fire rate passed.
-					if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
-						Fire();
-				}	
-			}
+				//Match Aim.
+				aiming = holdingButtonAim && CanAim();
+				//Match Run.
+				running = holdingButtonRun && CanRun();
 
-			//Update Animator.
-			UpdateAnimator();
+				//Holding the firing button.
+				if (holdingButtonFire)
+				{
+					//Check.
+					if (CanPlayAnimationFire() && equippedWeapon.HasAmmunition() && equippedWeapon.IsAutomatic())
+					{
+						//Has fire rate passed.
+						if (Time.time - lastShotTime > 60.0f / equippedWeapon.GetRateOfFire())
+							Fire();
+					}	
+				}
+
+				//Update Animator — local player sets parameters,
+				//NetworkAnimator syncs them to all other clients.
+				UpdateAnimator();
+			}
 		}
 
 		protected override void LateUpdate()
@@ -790,7 +801,12 @@ namespace InfimaGames.LowPolyShooterPack
 					
 					//Make sure we're allowed to change, and also that we're not using the same index, otherwise weird things happen!
 					if (CanChangeWeapon() && (indexCurrent != indexNext))
+					{
 						StartCoroutine(nameof(Equip), indexNext);
+						// FIX: Notify network about weapon switch so other clients see the correct weapon model
+						if (playerShooting != null)
+							playerShooting.CmdSwitchWeaponFromCharacter(indexNext);
+					}
 					break;
 			}
 		}

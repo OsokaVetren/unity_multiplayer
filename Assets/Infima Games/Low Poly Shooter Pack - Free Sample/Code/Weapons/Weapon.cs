@@ -138,9 +138,34 @@ namespace InfimaGames.LowPolyShooterPack
 
         protected override void Start()
         {
-            magazineBehaviour = attachmentManager.GetEquippedMagazine();
-            muzzleBehaviour = attachmentManager.GetEquippedMuzzle();
-            ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
+            EnsureAttachmentsInitialized();
+        }
+
+        /// <summary>
+        /// FIX: Ленивая инициализация attachments — Start() может не быть вызван
+        /// если оружие было деактивировано при Init() и позже активировано через Equip().
+        /// OnEnable гарантирует инициализацию при каждой активации.
+        /// </summary>
+        private void OnEnable()
+        {
+            EnsureAttachmentsInitialized();
+        }
+
+        private void EnsureAttachmentsInitialized()
+        {
+            if (attachmentManager == null)
+                attachmentManager = GetComponent<WeaponAttachmentManagerBehaviour>();
+
+            if (attachmentManager == null) return;
+
+            if (magazineBehaviour == null)
+                magazineBehaviour = attachmentManager.GetEquippedMagazine();
+
+            if (muzzleBehaviour == null)
+                muzzleBehaviour = attachmentManager.GetEquippedMuzzle();
+
+            if (magazineBehaviour != null && ammunitionCurrent <= 0)
+                ammunitionCurrent = magazineBehaviour.GetAmmunitionTotal();
         }
 
         #endregion
@@ -170,30 +195,43 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override void Reload()
         {
-            animator.Play(HasAmmunition() ? "Reload" : "Reload Empty", 0, 0.0f);
+            // FIX: Гарантируем инициализацию
+            EnsureAttachmentsInitialized();
+
+            if (animator != null)
+                animator.Play(HasAmmunition() ? "Reload" : "Reload Empty", 0, 0.0f);
         }
 
         public override void Fire(float spreadMultiplier = 1.0f)
         {
-            // --- NETWORK CHECK ---
-            // Only the local player should spawn visual projectiles
-            if (ownerNetIdentity != null && !ownerNetIdentity.isLocalPlayer)
-                return;
+            // FIX: Гарантируем инициализацию при вызове Fire()
+            EnsureAttachmentsInitialized();
 
             if (muzzleBehaviour == null)
+            {
+                Debug.LogWarning($"[Weapon] Fire() called but muzzleBehaviour is null on {gameObject.name}");
+                return;
+            }
+
+            // Muzzle flash, weapon animation and ammo decrement play on ALL clients
+            // so that every player sees the fire effect.
+            Transform muzzleSocket = muzzleBehaviour.GetSocket();
+
+            const string stateName = "Fire";
+            if (animator != null)
+                animator.Play(stateName, 0, 0.0f);
+
+            if (magazineBehaviour != null)
+                ammunitionCurrent = Mathf.Clamp(ammunitionCurrent - 1, 0, magazineBehaviour.GetAmmunitionTotal());
+
+            muzzleBehaviour.Effect();
+
+            // Projectile is cosmetic (not authoritative), spawned only by the local player
+            if (ownerNetIdentity != null && !ownerNetIdentity.isLocalPlayer)
                 return;
 
             if (playerCamera == null)
                 return;
-
-            Transform muzzleSocket = muzzleBehaviour.GetSocket();
-
-            const string stateName = "Fire";
-            animator.Play(stateName, 0, 0.0f);
-
-            ammunitionCurrent = Mathf.Clamp(ammunitionCurrent - 1, 0, magazineBehaviour.GetAmmunitionTotal());
-
-            muzzleBehaviour.Effect();
 
             Quaternion rotation = Quaternion.LookRotation(playerCamera.forward * 1000.0f - muzzleSocket.position);
 
@@ -213,10 +251,7 @@ namespace InfimaGames.LowPolyShooterPack
 
         public override void EjectCasing()
         {
-            // Only local player spawns visual casings
-            if (ownerNetIdentity != null && !ownerNetIdentity.isLocalPlayer)
-                return;
-
+            // Casings are purely visual — spawn on all clients
             if (prefabCasing != null && socketEjection != null)
                 Instantiate(prefabCasing, socketEjection.position, socketEjection.rotation);
         }

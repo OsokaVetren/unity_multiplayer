@@ -1490,7 +1490,7 @@ MonoBehaviour:
   syncDirection: 1
   syncMode: 0
   syncInterval: 0
-  clientAuthority: 0
+  clientAuthority: 1
   animator: {fileID: 3320314160785962872}
 --- !u!114 &9066694610157195228
 MonoBehaviour:

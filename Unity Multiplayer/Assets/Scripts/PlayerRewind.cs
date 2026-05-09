@@ -353,4 +353,30 @@ public class PlayerRewind : NetworkBehaviour
             }
         }
     }
+
+    [Server]
+    public void ResetRewindSystem()
+    {
+        // 1. Останавливаем текущую корутину перемотки, если она шла
+        StopAllCoroutines();
+        
+        // 2. Сбрасываем флаги состояния
+        isRewinding = false;
+        
+        // 3. ОЧИЩАЕМ ИСТОРИЮ
+        // Это важно: чтобы игрок не мог перемотаться "сквозь смерть" назад во времени
+        snapshots.Clear();
+        outgoingDamage.Clear();
+        incomingDamage.Clear();
+
+        // 4. Включаем управление обратно (на случай, если оно было выключено перемоткой)
+        if (characterController != null)
+            characterController.enabled = true;
+
+        if (connectionToClient != null)
+            TargetSetLocalControls(connectionToClient, true);
+
+        // 5. Разрешаем новую перемотку (можно сбросить кулдаун или оставить как есть)
+        // nextAllowedRewindTime = Time.time; 
+    }
 }

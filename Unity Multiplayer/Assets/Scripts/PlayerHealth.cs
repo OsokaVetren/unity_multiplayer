@@ -86,12 +86,20 @@ public class PlayerHealth : NetworkBehaviour
         health = Mathf.Min(maxHealth, health + amount);
     }
 
-    private void Respawn()
+    public void Respawn(Vector3 newPosition)
     {
+        PlayerRewind rewind = GetComponent<PlayerRewind>();
+        if (rewind != null)
+        {
+            rewind.ResetRewindSystem();
+        }
+
+        transform.position = newPosition;
+
         health = maxHealth;
 
         if (connectionToClient != null)
-            TargetRespawn(connectionToClient, spawnPoint);
+            TargetRespawn(connectionToClient, newPosition);
     }
 
     [TargetRpc]

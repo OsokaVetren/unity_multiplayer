@@ -38,11 +38,12 @@ public class MatchManager : NetworkBehaviour
         // Получаем все точки спавна
         Transform[] spawnPoints = NetworkManager.startPositions.ToArray();
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
+        print(players.Length);
         for (int i = 0; i < players.Length; i++)
         {
+            print("b");
             Vector3 spawnPos = spawnPoints[i % spawnPoints.Length].position;
-            players[i].GetComponent<PlayerScore>().RpcResetPosition(spawnPos);
+            players[i].GetComponent<PlayerHealth>().Respawn(spawnPos);
         }
     }
 

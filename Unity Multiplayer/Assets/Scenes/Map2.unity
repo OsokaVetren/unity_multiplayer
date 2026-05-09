@@ -3293,12 +3293,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 701425404}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -23.401, y: -13.869, z: 21.523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.6094913, y: -2.3018703, z: -7.247799}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1252651168}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &701425406
 MonoBehaviour:
@@ -6097,20 +6097,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 2538907236154164783, guid: be8a5da0efa47534ca0371715ce13538, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 701425405}
-    - targetCorrespondingSourceObject: {fileID: 2538907236154164783, guid: be8a5da0efa47534ca0371715ce13538, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1259764439}
+    m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be8a5da0efa47534ca0371715ce13538, type: 3}
---- !u!4 &1252651168 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2538907236154164783, guid: be8a5da0efa47534ca0371715ce13538, type: 3}
-  m_PrefabInstance: {fileID: 1252651167}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1259764438
 GameObject:
   m_ObjectHideFlags: 0
@@ -6136,12 +6125,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259764438}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.6, y: -13.869, z: 21.523}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 49.61049, y: -2.3018703, z: -7.247799}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1252651168}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1259764440
 MonoBehaviour:
@@ -9390,4 +9379,6 @@ SceneRoots:
   - {fileID: 711190563}
   - {fileID: 981351986}
   - {fileID: 943692781}
+  - {fileID: 701425405}
+  - {fileID: 1259764439}
   - {fileID: 1252651167}

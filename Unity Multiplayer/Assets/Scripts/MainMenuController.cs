@@ -15,6 +15,7 @@ public class MainMenuController : MonoBehaviour
     [SerializeField] private GameObject mapSelectionPanel;
     [SerializeField] private Button map1Button;
     [SerializeField] private Button map2Button;
+    [SerializeField] private Button map3Button;
     [SerializeField] private Button backButton;
 
     private void Start()
@@ -26,6 +27,7 @@ public class MainMenuController : MonoBehaviour
         // Кнопки выбора карты
         map1Button.onClick.AddListener(() => StartHostWithMap("Map1"));
         map2Button.onClick.AddListener(() => StartHostWithMap("Map2"));
+        map3Button.onClick.AddListener(() => StartHostWithMap("Map3"));
         backButton.onClick.AddListener(BackToMenu);
 
         if (string.IsNullOrEmpty(ipAddressInput.text))

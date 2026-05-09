@@ -2,12 +2,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using Mirror;
 using TMPro; 
+using System.Collections.Generic;
+using System.Linq;
+using Mirror.Examples.TopDownShooter;
 
 public class MatchUI : MonoBehaviour
 {
     public static MatchUI instance;
 
-    public TMP_Text scoreText;
+    [Header("Score Settings")]
+    public TMP_Text leftScoreText;  // Перетащите сюда левый текст
+    public TMP_Text rightScoreText; // Перетащите сюда правый текст
+    
     public GameObject victoryPanel;
     public TMP_Text victoryText;
     public Button restartButton;
@@ -17,33 +23,55 @@ public class MatchUI : MonoBehaviour
     void Start()
     {
         victoryPanel.SetActive(false);
-        // Только сервер (хост) может нажать кнопку перезапуска
-        restartButton.gameObject.SetActive(NetworkServer.active);
-        restartButton.onClick.AddListener(OnRestartPressed);
+        if (restartButton != null)
+        {
+            restartButton.gameObject.SetActive(NetworkServer.active);
+            restartButton.onClick.AddListener(OnRestartPressed);
+        }
     }
 
     public void UpdateScoreBoard()
     {
-        string info = "СЧЁТ:\n";
-        foreach (var p in GameObject.FindObjectsOfType<PlayerScore>())
+        var players = GameObject.FindObjectsOfType<PlayerScore>();
+        
+        leftScoreText.text = "";
+        rightScoreText.text = "";
+
+        foreach (var p in players)
         {
-            info += $"{p.playerName}: {p.kills}\n";
+            string line = $"{p.playerName}: {p.kills}";
+            
+            if (p.isLocalPlayer) 
+            {
+                // Вы — всегда слева (зеленым, например)
+                leftScoreText.text = $"<color=green>YOU: {p.kills}</color>";
+            }
+            else 
+            {
+                // Враг — всегда справа
+                rightScoreText.text = $"<color=red>ENEMY: {p.kills}</color>";
+            }
         }
-        scoreText.text = info;
     }
 
+    // Остальные методы без изменений
     public void ShowVictory(string winner)
     {
         victoryPanel.SetActive(true);
-        victoryText.text = $"ПОБЕДИТЕЛЬ: {winner}";
+        victoryText.text = $"ТЫ ПОБЕДИЛ, ТЫ МОЛОДЧИНА!";
+    }
+
+    public void HideVictory()
+    {
+        victoryPanel.SetActive(false);
     }
 
     void OnRestartPressed()
     {
         if (NetworkServer.active)
         {
-            victoryPanel.SetActive(false);
             MatchManager.instance.ServerRestartGame();
+            HideVictory();
         }
     }
 }
